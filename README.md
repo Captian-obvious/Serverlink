@@ -2,5 +2,5 @@
 <h3>An ssh client with a visual twist!</h3>
 <p>Serverlink is an ssh client with a visual twist, 
 letting you use a gui instead of text commands to control a server.
-Developed originally for CaptianObvious' use but later released as 
-thought it would be helpful.</p>
+Developed and maintained by CaptianObvious, this aims to make using an ssh client easy to understand!</p>
+*note: this is still in development and a WIP

@@ -9,7 +9,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #ifdef _WIN32
-#include "Windows.h"
 #include "winsock.h"
 #elif __linux__
 #include <netdb.h>

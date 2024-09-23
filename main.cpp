@@ -332,7 +332,7 @@ class SL_Client {
         cout << "SL: " << output << endl;
     };
     void print_err(string output){
-        cout << "SL Error: " << output << endl;
+        cout << "\033[1;31mSL: " << output << "\033[0m" << endl;
     };
 };
 class SL_GUI {

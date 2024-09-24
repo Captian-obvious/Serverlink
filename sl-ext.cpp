@@ -10,9 +10,13 @@
 #include <stdlib.h>
 
 void initialize(){
-    std::cout << "Initializing extension library..." << std::endl;
+    printf("Initializing extension library...");
 };
 
 class SL_VisualShell{
-
+    public:
+    FILE* connection;
+    SL_VisualShell(FILE* conn){
+        this->connection=conn;
+    };
 };

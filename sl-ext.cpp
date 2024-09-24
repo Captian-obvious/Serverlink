@@ -10,5 +10,5 @@
 #include <stdlib.h>
 
 void initialize(){
-    cout << "Initializing extension library..." << endl;
+    std::cout << "Initializing extension library..." << std::endl;
 };

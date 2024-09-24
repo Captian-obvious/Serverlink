@@ -1,5 +1,6 @@
 #include <chrono>
 #include <iostream>
+#include <algorithm>
 #include <thread>
 #include <vector>
 #include <string>
@@ -16,7 +17,7 @@
 #endif
 
 using namespace std;
-string ver="3.98.0";
+string ver="4.18.0";
 #ifdef _WIN32
 string cmd_prefix="> ";
 string shell_type="WinCMD";
@@ -115,6 +116,11 @@ class SL_Client {
         {"cinfo",{
             {"desc", "displays information about the current connection"},
             {"valid", "cinfo"},
+            {"arguments", "None"}
+        }},
+        {"disconnect",{
+            {"desc", "disconnects from the current connection"},
+            {"valid", "disconnect,disconn,discon"},
             {"arguments", "None"}
         }},
         {"info", {
@@ -242,6 +248,8 @@ class SL_Client {
             this_thread::sleep_for(chrono::milliseconds(1000));
             this->print_info("Disconnected from https://"+this->ip+".");
             this->isConnected=false;
+        }else{
+            this->print_err("Not connected to a server");
         };
     };
     int begin_shell(string hostname,int port,string credentials){
@@ -249,9 +257,14 @@ class SL_Client {
     };
     auto get_command(string cmd){
         string result="";
+        // Include the <string> header to use split
+        #include <string>
         for(auto i=this->commands.begin();i!=this->commands.end();i++){
             string cmd_name=i->first;
-            if(i->second["valid"].find(cmd)!=string::npos){
+            // Split the valid names by comma
+            vector<string> validNames=this->split(i->second["valid"],',');
+            // Check if cmd is in the valid names list
+            if (find(validNames.begin(),validNames.end(),cmd) != validNames.end()){
                 result=cmd_name;
                 break;
             };
@@ -299,6 +312,15 @@ class SL_Client {
         #endif
         return true;
     };
+    vector<string> split(const string &s,const char separator=' '){
+        vector<string> tokens;
+        string token;
+        istringstream tokenStream(s);
+        while (getline(tokenStream,token,separator)){
+            tokens.push_back(token);
+        };
+        return tokens;
+    };
     void run_cmd(string cmd, vector<string> args){
         if (cmd=="connect"){
             if(args.size()<1){
@@ -325,6 +347,12 @@ class SL_Client {
         }else if(cmd=="cinfo"){
             if (args.size()<1){
                 this->get_connection_info();
+            };
+        }else if(cmd=="disconnect"){
+            if (args.size()<1){ 
+                this->disconnect();
+            }else{
+                this->print_err("Too many arguments provided.");
             };
         };
     };

@@ -13,6 +13,6 @@ void initialize(){
     std::cout << "Initializing extension library..." << std::endl;
 };
 
-class SL_VISUALSHELL{
+class SL_VisualShell{
 
 };

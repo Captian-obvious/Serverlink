@@ -84,7 +84,7 @@ string get_os_name() {
     #elif __FreeBSD__
     return "FreeBSD";
     #elif __unix || __unix__
-    return "Unix";
+    return "unix";
     #else
     return "unknown";
     #endif

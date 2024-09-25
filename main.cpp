@@ -385,7 +385,7 @@ class SL_GUI {
             cout << "SL: Initializing Client..." << endl;
             this->client.initialize();
         };
-        this->client.print_info("Preparing to enter visual mode...")
+        this->client.print_info("Preparing to enter visual mode...");
         this->print_info("Initializing application...");
         this_thread::sleep_for(chrono::milliseconds(1000));
         this->print_info("Loading Window...");

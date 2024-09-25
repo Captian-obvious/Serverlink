@@ -382,11 +382,13 @@ class SL_GUI {
     };
     void start_ui(string page){
         if (!this->client.isInitialized){
+            cout << "SL: Initializing Client..." << endl;
             this->client.initialize();
-            this->print_info("Initializing application...");
-            this_thread::sleep_for(chrono::milliseconds(1000));
-            this->print_info("Loading Window...");
         };
+        this->client.print_info("Preparing to enter visual mode...")
+        this->print_info("Initializing application...");
+        this_thread::sleep_for(chrono::milliseconds(1000));
+        this->print_info("Loading Window...");
     };
     void print_info(string output){
         cout << "VSL: " << output << endl;

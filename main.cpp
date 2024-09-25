@@ -297,9 +297,9 @@ class SL_Client {
         hints.ai_socktype=SOCK_STREAM;    
         if ((status=getaddrinfo(hostname.c_str(), NULL, &hints, &res))!=0){
             #ifdef _WIN32
-            this->print_err("Unable to get address info: "+WSAGetLastError());
+            cerr << "\033[1;31mSL: Unable to get address info: " << WSAGetLastError() << "\033[0m" << endl;
             #else
-            cerr << "SL Error: Unable to get address info: " << gai_strerror(status) << endl;
+            cerr << "\033[1;31mSL: Unable to get address info: " << gai_strerror(status) << "\033[0m" << endl;
             #endif
             #ifdef _WIN32
             WSACleanup();

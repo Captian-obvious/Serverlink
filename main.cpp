@@ -162,7 +162,7 @@ class SL_Client {
                 {"user-agent","'"+this->sl_user_agent+"'"},
             };
             for(auto i=conn_info.begin();i!=conn_info.end();i++){
-                std::cout << "  " << i->first << ":" << i->second << std::endl;
+                cout << "  " << i->first << ":" << i->second << endl;
             };
         };
     };
@@ -286,7 +286,7 @@ class SL_Client {
     #ifdef _WIN32
         WSADATA wsaData;
         if (WSAStartup(MAKEWORD(2,2), &wsaData) != 0) {
-            cerr << "WSAStartup failed." << std::endl;
+            cerr << "WSAStartup failed." << endl;
             return false;
         };
         #endif
@@ -297,9 +297,9 @@ class SL_Client {
         hints.ai_socktype=SOCK_STREAM;    
         if ((status=getaddrinfo(hostname.c_str(), NULL, &hints, &res))!=0){
             #ifdef _WIN32
-            cerr << "\033[1;31mSL: Unable to get address info: " << WSAGetLastError() << "\033[0m" << std::endl;
+            cerr << "\033[1;31mSL: Unable to get address info: " << WSAGetLastError() << "\033[0m" << endl;
             #else
-            cerr << "\033[1;31mSL: Unable to get address info: " << gai_strerror(status) << "\033[0m" << std::endl;
+            cerr << "\033[1;31mSL: Unable to get address info: " << gai_strerror(status) << "\033[0m" << endl;
             #endif
             #ifdef _WIN32
             WSACleanup();
@@ -341,7 +341,7 @@ class SL_Client {
         }else if(cmd=="info"){
             if (args.size()<1){
                 for(auto i=this->info.begin();i!=this->info.end();i++){
-                    std::cout << "  " << i->first << ":" << i->second << std::endl;
+                    cout << "  " << i->first << ":" << i->second << endl;
                 };
             };
         }else if(cmd=="cinfo"){
@@ -357,10 +357,10 @@ class SL_Client {
         };
     };
     void print_info(string output){
-        std::cout << "SL: " << output << std::endl;
+        cout << "SL: " << output << endl;
     };
     void print_err(string output){
-        std::cout << "\033[1;31mSL: " << output << "\033[0m" << std::endl;
+        cout << "\033[1;31mSL: " << output << "\033[0m" << endl;
     };
 };
 class SL_GUI {
@@ -382,7 +382,7 @@ class SL_GUI {
     };
     void start_ui(string page){
         if (!this->client.isInitialized){
-            std::cout << "SL: Initializing Client..." << std::endl;
+            cout << "SL: Initializing Client..." << endl;
             this->client.initialize();
         };
         this->client.print_info("Preparing to enter visual mode...");
@@ -391,10 +391,10 @@ class SL_GUI {
         this->print_info("Loading Window...");
     };
     void print_info(string output){
-        std::cout << "VSL: " << output << std::endl;
+        cout << "VSL: " << output << endl;
     };
     void print_err(string output){
-        std::cout << "\033[1;31mVSL: " << output << "\033[0m" << std::endl;
+        cout << "\033[1;31mVSL: " << output << "\033[0m" << endl;
     };
 };
 
@@ -415,20 +415,20 @@ int main(int argc, char** argv){
     gui.init(slc);
     bool magic_exit_code=false;
     if (argc<2){
-        std::cout << "Welcome to Serverlink, what would you like to do?" << std::endl;
-        std::cout << "Type 'help' for a list of commands" << std::endl;
+        cout << "Welcome to Serverlink, what would you like to do?" << endl;
+        cout << "Type 'help' for a list of commands" << endl;
         while(!magic_exit_code){
             string input;
-            std::cout << cmd_prefix;
+            cout << cmd_prefix;
             getline(cin,input);
             vector<string> args=split(input);
             if(input==""){
                 continue;
             }else if(args[0]=="help"){
-                std::cout << "Commands:" << std::endl;
+                cout << "Commands:" << endl;
                 for(auto i=slc.commands.begin();i!=slc.commands.end();i++){
-                    std::cout << "  " << i->first << " - " << i->second["desc"] << std::endl;
-                    std::cout << "  Arguments: " << i->second["arguments"] << std::endl;
+                    cout << "  " << i->first << " - " << i->second["desc"] << endl;
+                    cout << "  Arguments: " << i->second["arguments"] << endl;
                 };
             }else if(slc.get_command(args[0])!=""){
                 string cmdname=slc.get_command(args[0]);
@@ -441,7 +441,7 @@ int main(int argc, char** argv){
                     slc.run_cmd(cmdname,args);
                 };
             }else{
-                std::cout << "Invalid command." << std::endl;
+                cout << "Invalid command." << endl;
             };
         };
     }else if (argc>1){
@@ -449,10 +449,10 @@ int main(int argc, char** argv){
         args.erase(args.begin());
         string cmd=args[0];
         if(cmd=="help"){
-            std::cout << "Commands:" << std::endl;
+            cout << "Commands:" << endl;
             for(auto i=slc.commands.begin();i!=slc.commands.end();i++){
-                std::cout << "  " << i->first << " - " << i->second["desc"] << std::endl;
-                std::cout << "  Arguments: " << i->second["arguments"] << std::endl;
+                cout << "  " << i->first << " - " << i->second["desc"] << endl;
+                cout << "  Arguments: " << i->second["arguments"] << endl;
             };
         }else if(slc.get_command(cmd)!=""){
             string cmdname=slc.get_command(cmd);
@@ -460,7 +460,7 @@ int main(int argc, char** argv){
             args.erase(args.begin());
             slc.run_cmd(cmdname,args);
         }else{
-            std::cout << "Invalid command." << std::endl;
+            cout << "Invalid command." << endl;
         };
     };
     return 0;

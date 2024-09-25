@@ -282,7 +282,7 @@ class SL_Client {
             this->print_err("Serverlink already initialized.");
         };
     };
-    bool hostname_resolves(const string& hostname) {
+    bool hostname_resolves(const std::string& hostname) {
     #ifdef _WIN32
         WSADATA wsaData;
         if (WSAStartup(MAKEWORD(2,2), &wsaData) != 0) {
@@ -299,7 +299,7 @@ class SL_Client {
             #ifdef _WIN32
             this->print_err("Unable to get address info: "+WSAGetLastError());
             #else
-            this->print_err("Unable to get address info: "+gai_strerror(status));
+            cerr << "SL Error: Unable to get address info: " << gai_strerror(status) << endl;
             #endif
             #ifdef _WIN32
             WSACleanup();

@@ -372,24 +372,20 @@ class SL_GUI {
     string username;
     void init(SL_Client sl){
         this->client=sl;
-        this->hostname=sl.ip;
-        this->port=sl.port;
-        this->credentials=sl.credentials;
-        this->username=sl.curr_user;
+        this->update_vars();
     };
     void update_vars(){
-        this->client=sl;
-        this->hostname=sl.ip;
-        this->port=sl.port;
-        this->credentials=sl.credentials;
-        this->username=sl.curr_user;
+        this->hostname=this->client.ip;
+        this->port=this->client.port;
+        this->credentials=this->client.credentials;
+        this->username=this->client.curr_user;
     };
     void start_ui(string page){
         if (!this->client.isInitialized){
             this->client.initialize();
-            this->print_info('Initializing application...');
+            this->print_info("Initializing application...");
             this_thread::sleep_for(chrono::milliseconds(1000));
-            this->print_info('Loading Window...');
+            this->print_info("Loading Window...");
         };
     };
     void print_info(string output){

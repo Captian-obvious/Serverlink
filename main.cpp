@@ -377,10 +377,26 @@ class SL_GUI {
         this->credentials=sl.credentials;
         this->username=sl.curr_user;
     };
+    void update_vars(){
+        this->client=sl;
+        this->hostname=sl.ip;
+        this->port=sl.port;
+        this->credentials=sl.credentials;
+        this->username=sl.curr_user;
+    };
     void start_ui(string page){
         if (!this->client.isInitialized){
             this->client.initialize();
+            this->print_info('Initializing application...');
+            this_thread::sleep_for(chrono::milliseconds(1000));
+            this->print_info('Loading Window...');
         };
+    };
+    void print_info(string output){
+        cout << "VSL: " << output << endl;
+    };
+    void print_err(string output){
+        cout << "\033[1;31mVSL: " << output << "\033[0m" << endl;
     };
 };
 

@@ -388,10 +388,13 @@ class SL_GUI {
         this->client.print_info("Preparing to enter visual mode...");
         this->print_info("Initializing application...");
         this_thread::sleep_for(chrono::milliseconds(1000));
-        this->print_info("Loading Window...");
+        this->print_info("Loading window...");
     };
     void make_window(){
         this->print_info("Starting <main>...");
+        this_thread::sleep_for(chrono::milliseconds(100));
+        this->print_info("Exiting to visual mode...");
+        this->print_info("Welcome to Serverlink!");
     };
     void print_info(string output){
         cout << "VSL: " << output << endl;

@@ -390,6 +390,9 @@ class SL_GUI {
         this_thread::sleep_for(chrono::milliseconds(1000));
         this->print_info("Loading Window...");
     };
+    void make_window(){
+        this->print_info('Starting <main>...')
+    };
     void print_info(string output){
         cout << "VSL: " << output << endl;
     };

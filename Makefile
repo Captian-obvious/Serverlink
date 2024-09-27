@@ -16,7 +16,7 @@ check:
 	ls
 
 distcheck:
-	./sl
+	./sl exit
 
 clean:
 	rm -f sl sl-debug

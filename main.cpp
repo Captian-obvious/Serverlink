@@ -363,7 +363,7 @@ class SL_Client {
                 this->gui_slc.start_ui("main");
             }else if(args.size<2){
                 this->isVisualMode=true;
-                this->gui_slc.start_ui(args[1]);
+                this->gui_slc.start_ui(args[0]);
             }else{
                 this->print_err("Too many arguments provided!");
             };

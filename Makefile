@@ -12,6 +12,11 @@ sl: $(SRCS) $(HEADERS)
 
 sl-debug: $(SRCS) $(HEADERS)
 	$(CXX) $(CXXFLAGS) -U_FORTIFY_SOURCE -O0 $(SRCS) -o "$@"
+check:
+	ls
+
+distcheck:
+	./sl
 
 clean:
 	rm -f sl sl-debug

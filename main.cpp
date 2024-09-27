@@ -98,6 +98,8 @@ class SL_Client {
     string currentUrl;
     FILE* sshConnection;
     bool isSSHConnected;
+    bool isVisualMode;
+    auto gui_slc;
     string curr_path;
     string curr_user;
     string credentials;
@@ -148,6 +150,7 @@ class SL_Client {
         this->isCLIInitialized=false;
         this->currentUrl="";
         this->isSSHConnected=false;
+        this->isVisualMode=false;
     };
     void get_connection_info(){
         if (!this->isConnected){
@@ -354,6 +357,16 @@ class SL_Client {
             }else{
                 this->print_err("Too many arguments provided.");
             };
+        }else if(cmd=="visual"){
+            if (args.size<1){
+                this->isVisualMode=true;
+                this->gui_slc.start_ui("main");
+            }else if(args.size<2){
+                this->isVisualMode=true;
+                this->gui_slc.start_ui(args[1]);
+            }else{
+                this->print_err("Too many arguments provided!");
+            };
         };
     };
     void print_info(string output){
@@ -419,6 +432,7 @@ int main(int argc, char** argv){
     slc.initialize();
     SL_GUI gui=SL_GUI();
     gui.init(slc);
+    slc.gui_slc=gui;
     bool magic_exit_code=false;
     if (argc<2){
         cout << "Welcome to Serverlink, what would you like to do?" << endl;

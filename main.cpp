@@ -89,6 +89,24 @@ string get_os_name() {
     return "unknown";
     #endif
 };
+string get_referring_shell() {
+    #ifdef _WIN32
+    const char* psModulePath = std::getenv("PSModulePath");
+    if (psModulePath) {
+        return "WinPS";
+    } else {
+        // Check for Command Prompt-specific environment variable
+        const char* comspec = std::getenv("COMSPEC");
+        if (comspec && std::string(comspec).find("cmd.exe") != std::string::npos) {
+            return "WinCMD";
+        }else{
+            return "unknown";
+        };
+    };
+    #elif __linux__
+    return "Unix-like";
+    #endif
+};
 class SL_Client {
     public: 
     bool isConnecting;

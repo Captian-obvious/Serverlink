@@ -478,7 +478,7 @@ int main(int argc, char** argv){
                     slc.run_cmd(cmdname,args);
                 };
             }else{
-                cout << "Invalid command." << endl;
+                cout << "\033[1;31mInvalid command.\033[0m" << endl;
             };
         };
     }else if (argc>1){

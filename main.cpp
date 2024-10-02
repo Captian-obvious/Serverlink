@@ -7,6 +7,7 @@
 #include <sstream>
 #include <unordered_map>
 #include <cstring>
+#include <cstdlib>
 #include <stdio.h>
 #include <stdlib.h>
 #ifdef _WIN32

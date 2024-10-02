@@ -104,7 +104,21 @@ string get_referring_shell() {
         };
     };
     #elif __linux__
-    return "Unix-like";
+    const char* shellPath=std::getenv("SHELL");
+    if (shellPath==nullptr){
+        return "No shell detected";
+    };
+    std::string shell(shellPath);
+    if (shell.find("bash") != std::string::npos){
+        return "bash";
+    }else if(shell.find("zsh")!=std::string::npos){
+        return "zsh";
+    }else if(shell.find("sh")!=std::string::npos){
+        return "sh";
+    }else{
+        return "Unknown shell";
+    };
+    return "No shell binary found";
     #endif
 };
 class SL_Client {

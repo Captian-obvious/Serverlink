@@ -445,6 +445,7 @@ vector<string> split(const string &s,const char separator=' '){
 };
 
 int main(int argc, char** argv){
+    shell_type=get_referring_shell();
     SL_Client slc=SL_Client();
     slc.initialize();
     SL_GUI gui=SL_GUI();

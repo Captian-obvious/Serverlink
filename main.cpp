@@ -321,7 +321,7 @@ class SL_Client {
     #ifdef _WIN32
         WSADATA wsaData;
         if (WSAStartup(MAKEWORD(2,2), &wsaData) != 0) {
-            cerr << "WSAStartup failed." << endl;
+            cerr << "\033[1;31mWSAStartup failed.\033[0m" << endl;
             return false;
         };
         #endif

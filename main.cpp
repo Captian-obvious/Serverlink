@@ -107,7 +107,7 @@ string get_referring_shell() {
     #elif __linux__
     const char* shellPath=std::getenv("SHELL");
     if (shellPath==nullptr){
-        return "No shell detected";
+        return "Unix-like";
     };
     std::string shell(shellPath);
     if (shell.find("bash") != std::string::npos){

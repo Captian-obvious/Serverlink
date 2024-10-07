@@ -438,7 +438,7 @@ class SL_GUI {
     void make_window(){
         this->print_info("Starting <main>...");
         this_thread::sleep_for(chrono::milliseconds(100));
-        this.client->print_info("Exiting to visual mode...");
+        this->client.print_info("Exiting to visual mode...");
         this->print_info("Welcome to Serverlink!");
     };
     void on_create_connection_clicked(){

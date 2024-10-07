@@ -438,8 +438,11 @@ class SL_GUI {
     void make_window(){
         this->print_info("Starting <main>...");
         this_thread::sleep_for(chrono::milliseconds(100));
-        this->print_info("Exiting to visual mode...");
+        this.client->print_info("Exiting to visual mode...");
         this->print_info("Welcome to Serverlink!");
+    };
+    void on_create_connection_clicked(){
+        this->print_info("User clicked 'Create New Connection'");
     };
     void print_info(string output){
         cout << "VSL: " << output << endl;

@@ -434,6 +434,7 @@ class SL_GUI {
         this->print_info("Initializing application...");
         this_thread::sleep_for(chrono::milliseconds(1000));
         this->print_info("Loading window...");
+        this->make_window();
     };
     void make_window(){
         this->print_info("Starting <main>...");

@@ -8,21 +8,21 @@ OUTFILE2 = ./libsl-ext.so
 
 # Target to compile the shared library
 libsl-ext.so: ./sl-ext/sl-ext.cpp
-    $(COMPILER) $(FLAGS) -shared -o $(OUTFILE2) ./sl-ext/sl-ext.cpp
+	$(COMPILER) $(FLAGS) -shared -o $(OUTFILE2) ./sl-ext/sl-ext.cpp
 
 # Target to compile the main executable and link with the shared library
 sl.2: ./main.cpp libsl-ext.so
-    $(COMPILER) $(FLAGS) ./main.cpp -L. -lsl-ext -Wl,-rpath='./' -o $(OUTFILE)
+	$(COMPILER) $(FLAGS) ./main.cpp -L. -lsl-ext -Wl,-rpath='./' -o $(OUTFILE)
 
 # Target to grant permissions
 permissions: sl.2 libsl-ext.so
-    chmod +x $(OUTFILE)
-    chmod +x $(OUTFILE2)
-    echo "Done!"
+	chmod +x $(OUTFILE)
+	chmod +x $(OUTFILE2)
+	echo "Done!"
 
 # Default target to compile the project and set permissions
 all: sl.2 permissions
 
 # Clean up compiled files
 clean:
-    rm -f $(OUTFILE) $(OUTFILE2)
+	rm -f $(OUTFILE) $(OUTFILE2)

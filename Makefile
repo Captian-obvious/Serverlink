@@ -8,7 +8,7 @@ OUTFILE2 = ./libsl-ext.so
 
 # Target to compile the shared library
 libsl-ext.so: ./sl-ext.cpp
-	$(COMPILER) $(FLAGS) -shared -o $(OUTFILE2) ./sl-ext/sl-ext.cpp
+	$(COMPILER) $(FLAGS) -shared -o $(OUTFILE2) ./sl-ext.cpp
 
 # Target to compile the main executable and link with the shared library
 sl: ./main.cpp libsl-ext.so

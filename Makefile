@@ -26,9 +26,6 @@ check:
 distcheck:
 	./sl quit
 
-# Default target to compile the project and set permissions
-all: lib,sl,permission 
-
 # Clean up compiled files
 clean:
 	rm -f $(OUTFILE) $(OUTFILE2)

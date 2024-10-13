@@ -13,7 +13,8 @@ lib: ./sl-ext.cpp
 # Target to compile the main executable and link with the shared library
 sl: ./main.cpp libsl-ext.so
 	$(COMPILER) $(FLAGS) ./main.cpp -L. -lsl-ext -Wl,-rpath='./' -o $(OUTFILE)
-
+main:
+	./compile.sh
 # Target to grant permissions
 permissions: sl libsl-ext.so
 	chmod +x $(OUTFILE)
@@ -25,7 +26,7 @@ distcheck:
 	./sl quit
 
 # Default target to compile the project and set permissions
-all: lib sl permissions
+all: main
 
 # Clean up compiled files
 clean:

@@ -26,7 +26,7 @@ distcheck:
 	./sl quit
 
 # Default target to compile the project and set permissions
-all: main
+all: lib,sl,permission 
 
 # Clean up compiled files
 clean:

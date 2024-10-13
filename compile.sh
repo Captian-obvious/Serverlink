@@ -2,10 +2,12 @@
 
 # Compile the project
 echo "Compiling..."
-COMPILER=g++
 
-# Main executable
+# Compiler and flags
+COMPILER=g++
 FLAGS="-g -Werror -fPIC"
+
+# Output files
 OUTFILE="./sl.2"
 OUTFILE2="./libsl-ext.so"
 
@@ -16,6 +18,9 @@ $COMPILER $FLAGS -shared -o $OUTFILE2 ./sl-ext.cpp
 $COMPILER $FLAGS ./main.cpp -L. -lsl-ext -Wl,-rpath='./' -o $OUTFILE
 
 echo "Compiled! Granting permissions..."
+
+# Grant execute permissions
 chmod +x $OUTFILE
 chmod +x $OUTFILE2
+
 echo "Done!"

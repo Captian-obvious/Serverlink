@@ -1,5 +1,6 @@
 # Makefile for compiling sl and sl-ext
 
+all: lib sl permissions
 # Variables
 COMPILER = g++
 FLAGS = -g -Werror -fPIC

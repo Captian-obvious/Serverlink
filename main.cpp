@@ -162,6 +162,11 @@ class SL_Client {
             {"valid", "info"},
             {"arguments", "None"}
         }},
+        {"visual", {
+            {"desc", "enters visual mode (not fully implemented)"},
+            {"valid", "visual,gui,vis"},
+            {"arguments", "None"}
+        }},
         {"exit", {
             {"desc", "exits the CLI"},
             {"valid", "exit,quit,leave"},
@@ -415,6 +420,7 @@ class SL_GUI {
     int port;
     string credentials;
     string username;
+    bool window_exists=false;
     void init(SL_Client sl){
         this->client=sl;
         this->update_vars();
@@ -434,16 +440,16 @@ class SL_GUI {
         this->print_info("Initializing application...");
         this_thread::sleep_for(chrono::milliseconds(1000));
         this->print_info("Loading window...");
-        this->make_window();
+        if (!this->window_exists){
+            this->make_window();
+        };
     };
     void make_window(){
+        this->window_exists=true;
         this->print_info("Starting <main>...");
         this_thread::sleep_for(chrono::milliseconds(100));
         this->client.print_info("Exiting to visual mode...");
         this->print_info("Welcome to Serverlink!");
-    };
-    void on_create_connection_clicked(){
-        this->print_info("User clicked 'Create New Connection'");
     };
     void print_info(string output){
         cout << "VSL: " << output << endl;
@@ -495,6 +501,9 @@ int main(int argc, char** argv){
                     // Run the command
                     args.erase(args.begin());
                     slc.run_cmd(cmdname,args);
+                    if (slc.isVisualMode){
+                        gui.start_ui("default");
+                    };
                 };
             }else{
                 cout << "\033[1;31mInvalid command.\033[0m" << endl;
@@ -516,7 +525,7 @@ int main(int argc, char** argv){
             args.erase(args.begin());
             slc.run_cmd(cmdname,args);
         }else{
-            cout << "Invalid command." << endl;
+            cout << "\033[1;31mInvalid command.\033[0m" << endl;
         };
     };
     return 0;

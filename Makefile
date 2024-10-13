@@ -14,7 +14,7 @@ lib: ./sl-ext.cpp
 sl: ./main.cpp libsl-ext.so
 	$(COMPILER) $(FLAGS) ./main.cpp -L. -lsl-ext -Wl,-rpath='./' -o $(OUTFILE)
 main:
-	./compile.sh
+	bash ./compile.sh
 # Target to grant permissions
 permissions: sl libsl-ext.so
 	chmod +x $(OUTFILE)

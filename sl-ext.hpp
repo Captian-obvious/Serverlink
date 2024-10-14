@@ -1,5 +1,5 @@
-#ifndef SL_EXT
-#define SL_EXT
+#ifndef sl_ext
+#define sl_ext
 
 #include <chrono>
 #include <iostream>
@@ -14,8 +14,10 @@
 
 extern "C++" {
     void initialize();
-
+    const string get_arch();
+    string get_os_name();
+    string get_referring_shell();
     class SL_VisualShell;
 };
 
-#endif // SL_EXT
+#endif // sl_ext

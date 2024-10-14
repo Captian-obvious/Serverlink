@@ -399,6 +399,7 @@ void loadSL_ExtDLL() {
             get_referring_shell = (GetReferringShellFunc)GetProcAddress(hDLL, "get_referring_shell");
             if (!initialize || !get_arch || !get_os_name || !get_referring_shell) {
                 cerr << "Failed to get one or more function addresses." << endl;
+                MessageBox(NULL,"Failed to get one or more function addresses.","Addr Fail",MB_OK | MB_ICONERROR);
             };
             isLoaded = true;
         }else{

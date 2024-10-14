@@ -10,7 +10,7 @@
 #include <cstdlib>
 #include <stdio.h>
 #include <stdlib.h>
-#include <sl-ext.hpp>
+#include "sl-ext.hpp"
 #ifdef _WIN32
 #include "winsock.h"
 #elif __linux__

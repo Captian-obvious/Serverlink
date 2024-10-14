@@ -8,6 +8,7 @@
 #include <cstring>
 #include <stdio.h>
 #include <stdlib.h>
+#include "sl-ext.hpp"
 extern "C++" {
     void initialize(){
         printf("Initializing extension library...");

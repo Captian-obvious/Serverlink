@@ -11,6 +11,7 @@
 #include <cstring>
 #include <stdio.h>
 #include <stdlib.h>
+using namespace std;
 
 extern "C++" {
     void initialize();

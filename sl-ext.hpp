@@ -1,5 +1,5 @@
-#ifndef sl_ext
-#define sl_ext
+#ifndef SL_EXT_HPP
+#define SL_EXT_HPP
 
 #include <chrono>
 #include <iostream>
@@ -11,14 +11,23 @@
 #include <cstring>
 #include <stdio.h>
 #include <stdlib.h>
+
 using namespace std;
 
-extern "C++" {
-    void initialize();
-    const string get_arch();
-    string get_os_name();
-    string get_referring_shell();
-    class SL_VisualShell;
-};
+#ifdef _WIN32
+    #ifdef SL_EXT_EXPORTS
+        #define SL_EXT_API __declspec(dllexport)
+    #else
+        #define SL_EXT_API __declspec(dllimport)
+    #endif
+#else
+    #define SL_EXT_API
+#endif
 
-#endif // sl_ext
+extern "C++" {
+    SL_EXT_API void initialize();
+    SL_EXT_API const char* get_arch();
+    SL_EXT_API string get_os_name();
+    SL_EXT_API string get_referring_shell();
+    class SL_EXT_API SL_VisualShell;
+};

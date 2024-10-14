@@ -9,14 +9,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "sl-ext.hpp"
+
 extern "C++" {
-    bool isInitialized;
-    void initialize(){
-        if (!isInitialized){
-            isInitialized=true;
+    bool isInitialized = false;
+
+    SL_EXT_API void initialize() {
+        if (!isInitialized) {
+            isInitialized = true;
         };
     };
-    const string get_arch() { //Get current architecture.
+
+    SL_EXT_API const char* get_arch() {
         #if defined(__x86_64__) || defined(_M_X64)
         return "x86_64";
         #elif defined(i386) || defined(__i386__) || defined(__i386) || defined(_M_IX86)
@@ -28,7 +31,7 @@ extern "C++" {
         #elif defined(__ARM_ARCH_4T__) || defined(__TARGET_ARM_4T)
         return "ARM4T";
         #elif defined(__ARM_ARCH_5_) || defined(__ARM_ARCH_5E_)
-        return "ARM5"
+        return "ARM5";
         #elif defined(__ARM_ARCH_6T2_) || defined(__ARM_ARCH_6T2_)
         return "ARM6T2";
         #elif defined(__ARM_ARCH_6__) || defined(__ARM_ARCH_6J__) || defined(__ARM_ARCH_6K__) || defined(__ARM_ARCH_6Z__) || defined(__ARM_ARCH_6ZK__)
@@ -61,7 +64,7 @@ extern "C++" {
         return "UNKNOWN";
         #endif
     };
-    string get_os_name() {
+    SL_EXT_API string get_os_name() {
         #ifdef _WIN32
         return "win32";
         #elif _WIN64
@@ -78,31 +81,30 @@ extern "C++" {
         return "unknown";
         #endif
     };
-    string get_referring_shell() {
+    SL_EXT_API string get_referring_shell() {
         #ifdef _WIN32
         const char* psModulePath = std::getenv("PSModulePath");
         if (psModulePath) {
             return "WinPS";
         } else {
-            // Check for Command Prompt-specific environment variable
             const char* comspec = std::getenv("COMSPEC");
             if (comspec && std::string(comspec).find("cmd.exe") != std::string::npos) {
                 return "WinCMD";
-            }else{
+            } else {
                 return "unknown";
-            };
-        };
+            }
+        }
         #elif __linux__
-        const char* shellPath=std::getenv("SHELL");
-        if (shellPath==nullptr){
+        const char* shellPath = std::getenv("SHELL");
+        if (shellPath == nullptr) {
             return "Unix-like";
-        };
+        }
         std::string shell(shellPath);
         if (shell.find("bash") != std::string::npos){
             return "bash";
-        }else if(shell.find("zsh")!=std::string::npos){
+        }else if(shell.find("zsh") != std::string::npos){
             return "zsh";
-        }else if(shell.find("sh")!=std::string::npos){
+        }else if(shell.find("sh") != std::string::npos){
             return "sh";
         }else{
             return "Unknown shell";
@@ -110,11 +112,11 @@ extern "C++" {
         return "No shell binary found";
         #endif
     };
-    class SL_VisualShell{
-        public:
+    class SL_VisualShell {
+    public:
         FILE* connection;
-        SL_VisualShell(FILE* conn){
-            this->connection=conn;
+        SL_VisualShell(FILE* conn) {
+            this->connection = conn;
         };
     };
 };

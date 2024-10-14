@@ -375,8 +375,42 @@ vector<string> split(const string &s,const char separator=' '){
     };
     return tokens;
 };
+#ifdef _WIN32
+#include "windows.h"
 
+typedef void (*InitializeFunc)();
+typedef const char* (*GetArchFunc)();
+typedef const char* (*GetOSNameFunc)();
+typedef const char* (*GetReferringShellFunc)();
+
+InitializeFunc initialize = nullptr;
+GetArchFunc get_arch = nullptr;
+GetOSNameFunc get_os_name = nullptr;
+GetReferringShellFunc get_referring_shell = nullptr;
+
+void loadSL_ExtDLL() {
+    static bool isLoaded = false;
+    if (!isLoaded) {
+        HINSTANCE hDLL = LoadLibrary("sl-ext.dll");
+        if (hDLL != NULL) {
+            initialize = (InitializeFunc)GetProcAddress(hDLL, "initialize");
+            get_arch = (GetArchFunc)GetProcAddress(hDLL, "get_arch");
+            get_os_name = (GetOSNameFunc)GetProcAddress(hDLL, "get_os_name");
+            get_referring_shell = (GetReferringShellFunc)GetProcAddress(hDLL, "get_referring_shell");
+            if (!initialize || !get_arch || !get_os_name || !get_referring_shell) {
+                cerr << "Failed to get one or more function addresses." << endl;
+            };
+            isLoaded = true;
+        }else{
+            cerr << "Failed to load the DLL." << endl;
+        };
+    };
+};
+#endif
 int main(int argc, char** argv){
+    #ifdef _WIN32
+    loadSL_ExtDLL();
+    #endif
     shell_type=get_referring_shell();
     SL_Client slc=SL_Client();
     slc.initialize();

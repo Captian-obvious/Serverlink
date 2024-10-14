@@ -402,7 +402,8 @@ void loadSL_ExtDLL() {
             };
             isLoaded = true;
         }else{
-            cerr << "Failed to load the DLL." << endl;
+            cerr << "Failed to load sl-ext.dll . Is it in the current directory?" << endl;
+            MessageBox(NULL,"Failed to load 'sl-ext.dll'. Is in in the current directory?","Failed to load dll",MB_OK | MB_ICONERROR);
         };
     };
 };

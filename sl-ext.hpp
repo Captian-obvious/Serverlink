@@ -15,11 +15,7 @@
 extern "C++" {
     void initialize();
 
-    class SL_VisualShell {
-    public:
-        FILE* connection;
-        SL_VisualShell(FILE* conn);
-    };
-}
+    class SL_VisualShell;
+};
 
 #endif // SL_EXT

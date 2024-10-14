@@ -31,3 +31,4 @@ extern "C++" {
     SL_EXT_API string get_referring_shell();
     class SL_EXT_API SL_VisualShell;
 };
+#endif

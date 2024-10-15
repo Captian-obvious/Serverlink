@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ls
 # Directory to check
-directory="./path_to_directory"
+directory="./"
 
 # File to check for
 file_name="sl"

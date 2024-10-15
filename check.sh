@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-ls | echo
+ls
 # Directory to check
 directory="./path_to_directory"
 

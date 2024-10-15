@@ -12,7 +12,7 @@
 
 extern "C++" {
     bool isInitialized = false;
-
+    int vsh_instances=0;
     SL_EXT_API void initialize() {
         if (!isInitialized) {
             isInitialized = true;
@@ -113,10 +113,38 @@ extern "C++" {
         #endif
     };
     class SL_VisualShell {
-    public:
+        public:
         FILE* connection;
-        SL_VisualShell(FILE* conn) {
+        bool isInitialized;
+        bool shell_child_active;
+        int instanceNumber;
+        SL_VisualShell(FILE* conn){
             this->connection = conn;
+            this->shell_child_active=false;
+            this->isInitialized=false;
+            vsh_instances++;
+            this->instanceNumber=vsh_instances;
+        };
+        ~SL_VisualShell(){
+            if (this->isInitialized) {
+                printf("VSL: Cleaning up VisualShell(TM) Instance %d", this->instanceNumber);
+                vsh_instances--;
+            };
+        };
+        void init(){
+            if (!this->isInitialized){
+                printf("VSL: Loading VisualShell(TM) Instance %s",this->instanceNumber);
+                this->isInitialized=true;
+                this->shell_child_active=true;
+                // We will create a shell child from the ssh connection
+            };
+        };
+        void kill(){
+            if (this->isInitialized){
+                printf("VSL: Shutting down VisualShell(TM) Instance %s",this->instanceNumber);
+                this->isInitialized=false;
+                this->shell_child_active=false;
+            };
         };
     };
 };

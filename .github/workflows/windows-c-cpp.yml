@@ -31,4 +31,6 @@ jobs:
         dir build\\lib
 
     - name: Run checks
+      run: |
+        build\\bin\\sl.exe quit
       

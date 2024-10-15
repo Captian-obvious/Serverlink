@@ -107,7 +107,7 @@ extern "C++" {
         }else if(shell.find("sh") != std::string::npos){
             return "sh";
         }else{
-            return "Unknown shell";
+            return "unix-shell";
         };
         return "No shell binary found";
         #endif

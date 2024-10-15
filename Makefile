@@ -22,7 +22,7 @@ permissions: sl libsl-ext.so
 	chmod +x $(OUTFILE2)
 	echo "Done!"
 check:
-	ls
+	bash ./check.sh
 distcheck:
 	./sl quit
 

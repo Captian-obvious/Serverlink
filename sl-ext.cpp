@@ -127,13 +127,13 @@ extern "C++" {
         };
         ~SL_VisualShell(){
             if (this->isInitialized) {
-                printf("VSL: Cleaning up VisualShell(TM) Instance %d", this->instanceNumber);
+                printf("VSL: Cleaning up VisualShell(TM) Instance %d",this->instanceNumber);
                 vsh_instances--;
             };
         };
         void init(){
             if (!this->isInitialized){
-                printf("VSL: Loading VisualShell(TM) Instance %s",this->instanceNumber);
+                printf("VSL: Loading VisualShell(TM) Instance %d",this->instanceNumber);
                 this->isInitialized=true;
                 this->shell_child_active=true;
                 // We will create a shell child from the ssh connection
@@ -141,7 +141,7 @@ extern "C++" {
         };
         void kill(){
             if (this->isInitialized){
-                printf("VSL: Shutting down VisualShell(TM) Instance %s",this->instanceNumber);
+                printf("VSL: Shutting down VisualShell(TM) Instance %d",this->instanceNumber);
                 this->isInitialized=false;
                 this->shell_child_active=false;
             };

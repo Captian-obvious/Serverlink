@@ -22,11 +22,6 @@ add_executable(sl main.cpp)
 target_link_libraries(sl sl-ext)
 
 # Add custom commands for permissions and check targets
-add_custom_target(permissions
-    COMMAND ${CMAKE_COMMAND} -E chmod +x ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/sl
-    COMMAND ${CMAKE_COMMAND} -E chmod +x ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libsl-ext.so
-    COMMENT "Setting execute permissions"
-)
 
 add_custom_target(check
     COMMAND ls

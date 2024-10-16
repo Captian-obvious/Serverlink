@@ -23,12 +23,23 @@ using namespace std;
 #else
     #define SL_EXT_API
 #endif
-
-extern "C++" {
+extern "C" {
     SL_EXT_API void initialize();
     SL_EXT_API const char* get_arch();
     SL_EXT_API string get_os_name();
     SL_EXT_API string get_referring_shell();
-    class SL_EXT_API SL_VisualShell;
+};
+class SL_EXT_API SL_VisualShell {
+public:
+    FILE* connection;
+    bool isInitialized;
+    bool shell_child_active;
+    int instanceNumber;
+
+    SL_VisualShell(FILE* conn);
+    ~SL_VisualShell();
+
+    void init();
+    void kill();
 };
 #endif

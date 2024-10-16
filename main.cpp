@@ -160,8 +160,11 @@ class SL_Client {
         };
         const char* cmd=precmd.c_str();
         try{
+            #ifdef _WIN32
+            this->sshConnection=_popen(cmd,"w");
+            #elif __linux__
             this->sshConnection=popen(cmd,"w");
-
+            #endif
         }catch(system_error& e){
             this->print_err("Failed to initialize SSH connection");
             return 1;
@@ -180,7 +183,11 @@ class SL_Client {
             this->print_err("Not connected to a server");
         }else if(this->isSSHConnected){
             this->isSSHConnected=false;
+            #ifdef _WIN32
+            _pclose(this->sshConnection);
+            #elif __linux__
             pclose(this->sshConnection);
+            #endif
             this->print_info("SSH connection closed");
         };
     };

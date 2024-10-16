@@ -26,7 +26,7 @@ target_link_libraries(sl sl-ext)
 add_custom_target(check
     COMMAND ls
     COMMAND ${CMAKE_COMMAND} -E echo "Done!"
-    COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/sl quit
+    COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/sl.exe quit
     COMMENT "Running check target"
 )
 

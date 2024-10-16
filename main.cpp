@@ -9,6 +9,7 @@
 #include <cstring>
 #include <cstdlib>
 #include <stdio.h>
+#include <cstdio>
 #include <stdlib.h>
 #include "sl-ext.hpp"
 #ifdef _WIN32

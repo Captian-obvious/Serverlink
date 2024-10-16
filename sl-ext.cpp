@@ -83,17 +83,26 @@ extern "C++" {
     };
     SL_EXT_API string get_referring_shell() {
         #ifdef _WIN32
-        const char* psModulePath = _dupenv_s("PSModulePath");
-        if (psModulePath) {
+        char* psModulePath=nullptr;
+        size_t size=0;
+        _dupenv_s(&psModulePath,&size,"PSModulePath");
+        if (psModulePath){
+            free(psModulePath);
             return "WinPS";
-        } else {
-            const char* comspec = _dupenv_s("COMSPEC");
-            if (comspec && std::string(comspec).find("cmd.exe") != std::string::npos) {
+        }else{
+            char* comspec=nullptr;
+            size=0;
+            _dupenv_s(&comspec,&size,"COMSPEC");
+            if (comspec && std::string(comspec).find("cmd.exe") != std::string::npos){
+                free(comspec);
                 return "WinCMD";
-            } else {
+            }else{
+                if (comspec){
+                    free(comspec);
+                };
                 return "unknown";
-            }
-        }
+            };
+        };
         #elif __linux__
         const char* shellPath = std::getenv("SHELL");
         if (shellPath == nullptr) {

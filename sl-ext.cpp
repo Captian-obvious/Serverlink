@@ -8,6 +8,7 @@
 #include <cstring>
 #include <stdio.h>
 #include <stdlib.h>
+#define SL_EXT_EXPORTS
 #include "sl-ext.hpp"
 
 extern "C++" {

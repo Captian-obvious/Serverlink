@@ -387,20 +387,15 @@ typedef const char* (*GetArchFunc)();
 typedef const char* (*GetOSNameFunc)();
 typedef const char* (*GetReferringShellFunc)();
 
-InitializeFunc initialize = nullptr;
-GetArchFunc get_arch = nullptr;
-GetOSNameFunc get_os_name = nullptr;
-GetReferringShellFunc get_referring_shell = nullptr;
-
 void loadSL_ExtDLL() {
     static bool isLoaded = false;
     if (!isLoaded) {
         HINSTANCE hDLL = LoadLibrary("sl-ext.dll");
         if (hDLL != NULL) {
-            initialize = (InitializeFunc)GetProcAddress(hDLL, "initialize");
-            get_arch = (GetArchFunc)GetProcAddress(hDLL, "get_arch");
-            get_os_name = (GetOSNameFunc)GetProcAddress(hDLL, "get_os_name");
-            get_referring_shell = (GetReferringShellFunc)GetProcAddress(hDLL, "get_referring_shell");
+            InitializeFunc initialize = (InitializeFunc)GetProcAddress(hDLL, "initialize");
+            GetArchFunc get_arch = (GetArchFunc)GetProcAddress(hDLL, "get_arch");
+            GetOSNameFunc get_os_name = (GetOSNameFunc)GetProcAddress(hDLL, "get_os_name");
+            GetReferringShellFunc get_referring_shell = (GetReferringShellFunc)GetProcAddress(hDLL, "get_referring_shell");
             if (!initialize || !get_arch || !get_os_name || !get_referring_shell) {
                 cerr << "Failed to get one or more function addresses." << endl;
                 MessageBox(NULL,"Failed to get one or more function addresses.","AddrLoadFail",MB_OK | MB_ICONERROR);

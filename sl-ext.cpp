@@ -123,7 +123,6 @@ extern "C" {
         #endif
     };
 };
-}
 
 SL_VisualShell::SL_VisualShell(FILE* conn) {
     this->connection = conn;

@@ -9,7 +9,8 @@ Developed and maintained by CaptianObvious, this aims to make using an ssh clien
     <li>Visual interface (still WIP) for controlling connections and configurations</li>
     <li>VisualShell (TM)</li>
     <li>Command line utilities for basic management</li>
-    <li>A nice wrapper to abstract all of the complexity of commands away.</li>
+    <li>Mounting of the your home folder on the server</li>
+    <li>SSH abstractions for ease of use</li>
 </ul>
 
 <em>This program mostly is only supported well on linux, a windows build does exist but dont treat it as reliable.</em><br>

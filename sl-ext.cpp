@@ -122,15 +122,15 @@ extern "C" {
         return "No shell binary found";
         #endif
     };
-    SL_EXT_API SL_VisualShell* create_visual_shell(FILE* conn){
-        SL_VisualShell* vs=SL_VisualShell(conn);
+    SL_EXT_API SL_VisualShell create_visual_shell(FILE* conn){
+        SL_VisualShell vs=SL_VisualShell(conn);
         return vs;
     };
-    SL_EXT_API void init_visual_shell(SL_VisualShell* vs){
-        vs->init();
+    SL_EXT_API void init_visual_shell(SL_VisualShell vs){
+        vs.init();
     };
-    SL_EXT_API void kill_visual_shell(SL_VisualShell* vs){
-        vs->kill();
+    SL_EXT_API void kill_visual_shell(SL_VisualShell vs){
+        vs.kill();
     };
 };
 SL_VisualShell::SL_VisualShell(FILE* conn) {

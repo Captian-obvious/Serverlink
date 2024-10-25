@@ -28,9 +28,9 @@ extern "C" {
     SL_EXT_API const char* get_arch();
     SL_EXT_API string get_os_name();
     SL_EXT_API string get_referring_shell();
-    SL_EXT_API SL_VisualShell* create_visual_shell(FILE* conn);
-    SL_EXT_API void init_visual_shell(SL_VisualShell* vs);
-    SL_EXT_API void kill_visual_shell(SL_VisualShell* vs);
+    SL_EXT_API SL_VisualShell create_visual_shell(FILE* conn);
+    SL_EXT_API void init_visual_shell(SL_VisualShell vs);
+    SL_EXT_API void kill_visual_shell(SL_VisualShell vs);
 };
 class SL_EXT_API SL_VisualShell {
 public:

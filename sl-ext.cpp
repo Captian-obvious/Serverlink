@@ -122,35 +122,43 @@ extern "C" {
         return "No shell binary found";
         #endif
     };
+    SL_EXT_API SL_VisualShell* create_visual_shell(FILE* conn){
+        SL_VisualShell* vs=SL_VisualShell(conn);
+        return vs;
+    };
+    SL_EXT_API void init_visual_shell(SL_VisualShell* vs){
+        vs.init();
+    };
+    SL_EXT_API void kill_visual_shell(SL_VisualShell* vs){
+        vs.kill();
+    };
+};
+SL_VisualShell::SL_VisualShell(FILE* conn) {
+    this->connection = conn;
+    this->shell_child_active = false;
+    this->isInitialized = false;
+    vsh_instances++;
+    this->instanceNumber = vsh_instances;
+};
+SL_VisualShell::~SL_VisualShell() {
+    if (this->isInitialized) {
+        printf("VSL: Cleaning up VisualShell(TM) Instance %d", this->instanceNumber);
+        vsh_instances--;
+    };
+};
+void SL_VisualShell::init() {
+    if (!this->isInitialized) {
+        printf("VSL: Loading VisualShell(TM) Instance %d", this->instanceNumber);
+        this->isInitialized = true;
+        this->shell_child_active = true;
+        // We will create a shell child from the ssh connection
+    };
+};
 
-    SL_EXT_API SL_VisualShell::SL_VisualShell(FILE* conn) {
-        this->connection = conn;
-        this->shell_child_active = false;
+void SL_VisualShell::kill() {
+    if (this->isInitialized) {
+        printf("VSL: Shutting down VisualShell(TM) Instance %d", this->instanceNumber);
         this->isInitialized = false;
-        vsh_instances++;
-        this->instanceNumber = vsh_instances;
-    };
-
-    SL_EXT_API SL_VisualShell::~SL_VisualShell() {
-        if (this->isInitialized) {
-            printf("VSL: Cleaning up VisualShell(TM) Instance %d", this->instanceNumber);
-            vsh_instances--;
-        };
-    };
-    SL_EXT_API void SL_VisualShell::init() {
-        if (!this->isInitialized) {
-            printf("VSL: Loading VisualShell(TM) Instance %d", this->instanceNumber);
-            this->isInitialized = true;
-            this->shell_child_active = true;
-            // We will create a shell child from the ssh connection
-        };
-    };
-
-    void SL_VisualShell::kill() {
-        if (this->isInitialized) {
-            printf("VSL: Shutting down VisualShell(TM) Instance %d", this->instanceNumber);
-            this->isInitialized = false;
-            this->shell_child_active = false;
-        };
+        this->shell_child_active = false;
     };
 };

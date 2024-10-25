@@ -419,6 +419,7 @@ int main(int argc, char** argv){
     #ifdef _WIN32
     loadSL_ExtDLL();
     #endif
+    initialize();
     shell_type=get_referring_shell();
     SL_Client slc=SL_Client();
     slc.initialize();

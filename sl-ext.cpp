@@ -127,10 +127,10 @@ extern "C" {
         return vs;
     };
     SL_EXT_API void init_visual_shell(SL_VisualShell* vs){
-        vs.init();
+        vs->init();
     };
     SL_EXT_API void kill_visual_shell(SL_VisualShell* vs){
-        vs.kill();
+        vs->kill();
     };
 };
 SL_VisualShell::SL_VisualShell(FILE* conn) {

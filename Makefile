@@ -3,7 +3,7 @@
 all: lib sl permissions
 # Variables
 COMPILER = g++
-FLAGS = -O2 -g -Werror -fPIC
+FLAGS = -g -Werror -fPIC
 OUTFILE = ./sl
 OUTFILE2 = ./libsl-ext.so
 

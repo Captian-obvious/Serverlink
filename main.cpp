@@ -393,6 +393,9 @@ typedef void (*InitializeFunc)();
 typedef const char* (*GetArchFunc)();
 typedef const char* (*GetOSNameFunc)();
 typedef const char* (*GetReferringShellFunc)();
+typedef SL_VisualShell (*CreateVisualShellFunc)(FILE*);
+typedef void (*InitVisualShellFunc)(SL_VisualShell);
+typedef void (*KillVisualShellFunc)(SL_VisualShell);
 
 void loadSL_ExtDLL() {
     static bool isLoaded = false;
@@ -403,14 +406,18 @@ void loadSL_ExtDLL() {
             GetArchFunc get_arch = (GetArchFunc)GetProcAddress(hDLL, "get_arch");
             GetOSNameFunc get_os_name = (GetOSNameFunc)GetProcAddress(hDLL, "get_os_name");
             GetReferringShellFunc get_referring_shell = (GetReferringShellFunc)GetProcAddress(hDLL, "get_referring_shell");
-            if (!initialize || !get_arch || !get_os_name || !get_referring_shell) {
+            CreateVisualShellFunc create_visual_shell = (CreateVisualShellFunc)GetProcAddress(hDLL, "create_visual_shell");
+            InitVisualShellFunc init_visual_shell=(InitVisualShellFunc)GetProcAddress(hDLL, "init_visual_shell");
+            KillVisualShellFunc kill_visual_shell=(KillVisualShellFunc)GetProcAddress(hDLL, "kill_visual_shell");
+
+            if (!initialize || !get_arch || !get_os_name || !get_referring_shell || !create_visual_shell || !init_visual_shell || !kill_visual_shell) {
                 cerr << "Failed to get one or more function addresses." << endl;
-                MessageBox(NULL,"Failed to get one or more function addresses.","AddrLoadFail",MB_OK | MB_ICONERROR);
+                MessageBox(NULL, "Failed to get one or more function addresses.", "AddrLoadFail", MB_OK | MB_ICONERROR);
             };
-            isLoaded = true;
+            isLoaded=true;
         }else{
-            cerr << "Failed to load sl-ext.dll . Is it in the current directory?" << endl;
-            MessageBox(NULL,"Failed to load 'sl-ext.dll'. Is in in the current directory?","Failed to load dll",MB_OK | MB_ICONERROR);
+            cerr << "Failed to load sl-ext.dll. Is it in the current directory?" << endl;
+            MessageBox(NULL, "Failed to load 'sl-ext.dll'. Is it in the current directory?", "Failed to load dll", MB_OK | MB_ICONERROR);
         };
     };
 };

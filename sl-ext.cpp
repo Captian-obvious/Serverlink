@@ -9,8 +9,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fstream>
+#ifdef __linux__
 #include <unistd.h>
 #include <limits.h>
+#endif
 #define SL_EXT_EXPORTS
 #include "sl-ext.hpp"
 

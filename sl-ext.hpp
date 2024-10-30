@@ -11,6 +11,9 @@
 #include <cstring>
 #include <stdio.h>
 #include <stdlib.h>
+#include <fstream>
+#include <unistd.h>
+#include <limits.h>
 
 using namespace std;
 

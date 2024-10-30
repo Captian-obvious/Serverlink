@@ -8,6 +8,9 @@
 #include <cstring>
 #include <stdio.h>
 #include <stdlib.h>
+#include <fstream>
+#include <unistd.h>
+#include <limits.h>
 #define SL_EXT_EXPORTS
 #include "sl-ext.hpp"
 

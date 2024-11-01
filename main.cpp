@@ -280,51 +280,48 @@ class SL_Client {
         return tokens;
     };
     void run_cmd(string cmd, vector<string> args){
-        switch(cmd){
-            case "connect":
-                if(args.size()<1){
-                    this->print_err("No hostname provided, process exited.");
-                }else if(args.size()<2){
-                    this->connect(args[0],22,"");
-                }else if(args.size()<3){
-                    this->connect(args[0],stoi(args[1]),"");
-                }else if (args.size()==3){
-                    if (args[2].find("-cred=")!=string::npos){
-                        this->connect(args[0],stoi(args[1]),args[2].substr(6));
-                    }else{
-                        this->print_err("Invalid credentials provided, process exited.");
-                    };
+        if (cmd=="connect"){
+            if(args.size()<1){
+                this->print_err("No hostname provided, process exited.");
+            }else if(args.size()<2){
+                this->connect(args[0],22,"");
+            }else if(args.size()<3){
+                this->connect(args[0],stoi(args[1]),"");
+            }else if (args.size()==3){
+                if (args[2].find("-cred=")!=string::npos){
+                    this->connect(args[0],stoi(args[1]),args[2].substr(6));
                 }else{
-                    this->print_err("Too many arguments provided, process exited.");
+                    this->print_err("Invalid credentials provided, process exited.");
                 };
-            case "info":
-                if (args.size()<1){
-                    for(auto i=this->info.begin();i!=this->info.end();i++){
-                        cout << "  " << i->first << ":" << i->second << endl;
-                    };
+            }else{
+                this->print_err("Too many arguments provided, process exited.");
+            };
+        }else if(cmd=="info"){
+            if (args.size()<1){
+                for(auto i=this->info.begin();i!=this->info.end();i++){
+                    cout << "  " << i->first << ":" << i->second << endl;
                 };
-            case "cinfo":
-                if (args.size()<1){
-                    this->get_connection_info();
-                };
-            case "disconnect":
-                if (args.size()<1){ 
-                    this->disconnect();
-                }else{
-                    this->print_err("Too many arguments provided.");
-                };
-            case "visual":
-                if (args.size()<1){
-                    this->isVisualMode=true;
-                    this->print_info("Press <ENTER> to enter visual mode.");
-                }else if(args.size()<2){
-                    this->isVisualMode=true;
-                    this->print_info("Press <ENTER> to enter visual mode.");
-                }else{
-                    this->print_err("Too many arguments provided!");
-                };
-            default:
-                this->print_err("Unknown command provided to run_cmd");
+            };
+        }else if(cmd=="cinfo"){
+            if (args.size()<1){
+                this->get_connection_info();
+            };
+        }else if(cmd=="disconnect"){
+            if (args.size()<1){ 
+                this->disconnect();
+            }else{
+                this->print_err("Too many arguments provided.");
+            };
+        }else if(cmd=="visual"){
+            if (args.size()<1){
+                this->isVisualMode=true;
+                this->print_info("Press <ENTER> to enter visual mode.");
+            }else if(args.size()<2){
+                this->isVisualMode=true;
+                this->print_info("Press <ENTER> to enter visual mode.");
+            }else{
+                this->print_err("Too many arguments provided!");
+            };
         };
     };
     void print_info(string output){

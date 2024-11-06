@@ -9,7 +9,7 @@ Developed and maintained by CaptianObvious, this aims to make using an ssh clien
     <li>Visual interface (still WIP) for controlling connections and configurations</li>
     <li>VisualShell (TM)</li>
     <li>Command line utilities for more advanced management</li>
-    <li>Mounting of the your home folder on the server</li>
+    <li>Mounting of your home folder on the server to your local machine</li>
     <li>SSH abstractions for ease of use</li>
 </ul>
 

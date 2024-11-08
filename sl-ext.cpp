@@ -88,68 +88,68 @@ extern "C" {
         #endif
     };
     SL_EXT_API std::string get_referring_shell() {
-    #ifdef _WIN32
-    char* psModulePath = nullptr;
-    size_t size = 0;
-    _dupenv_s(&psModulePath, &size, "PSModulePath");
-    if (psModulePath) {
-        free(psModulePath);
-        return "WinPS";
-    } else {
-        char* comspec = nullptr;
-        size = 0;
-        _dupenv_s(&comspec, &size, "COMSPEC");
-        if (comspec && std::string(comspec).find("cmd.exe") != std::string::npos) {
-            free(comspec);
-            return "WinCMD";
+        #ifdef _WIN32
+        char* psModulePath = nullptr;
+        size_t size = 0;
+        _dupenv_s(&psModulePath, &size, "PSModulePath");
+        if (psModulePath) {
+            free(psModulePath);
+            return "WinPS";
         } else {
-            if (comspec) {
+            char* comspec = nullptr;
+            size = 0;
+            _dupenv_s(&comspec, &size, "COMSPEC");
+            if (comspec && std::string(comspec).find("cmd.exe") != std::string::npos) {
                 free(comspec);
+                return "WinCMD";
+            } else {
+                if (comspec) {
+                    free(comspec);
+                }
+                return "unknown";
             }
-            return "unknown";
         }
-    }
-    #elif __linux__
-    // Step 1: Get the PPID from /proc/self/status
-    std::ifstream statusFile("/proc/self/status");
-    std::string line;
-    pid_t ppid = -1;
+        #elif __linux__
+        // Step 1: Get the PPID from /proc/self/status
+        std::ifstream statusFile("/proc/self/status");
+        std::string line;
+        pid_t ppid = -1;
 
-    while (std::getline(statusFile, line)) {
-        if (line.substr(0, 5) == "PPid:") {
-            ppid = std::stoi(line.substr(5));
-            break;
+        while (std::getline(statusFile, line)) {
+            if (line.substr(0, 5) == "PPid:") {
+                ppid = std::stoi(line.substr(5));
+                break;
+            }
         }
+        statusFile.close();
+
+        if (ppid == -1) {
+            return "Error: Unable to find PPID";
+        }
+
+        // Step 2: Read the executable link from /proc/[PPID]/exe
+        std::string exePath = "/proc/" + std::to_string(ppid) + "/exe";
+        char parentExePath[PATH_MAX];
+        ssize_t len = readlink(exePath.c_str(), parentExePath, sizeof(parentExePath) - 1);
+
+        if (len == -1) {
+            return "Error reading " + exePath;
+        }
+
+        parentExePath[len] = '\0'; // Null-terminate the string
+        std::string parentExe(parentExePath);
+
+        if (parentExe.find("bash") != std::string::npos) {
+            return "bash";
+        } else if (parentExe.find("zsh") != std::string::npos) {
+            return "zsh";
+        } else if (parentExe.find("sh") != std::string::npos) {
+            return "sh";
+        } else {
+            return "unix-shell";
+        }
+        #endif
     }
-    statusFile.close();
-
-    if (ppid == -1) {
-        return "Error: Unable to find PPID";
-    }
-
-    // Step 2: Read the executable link from /proc/[PPID]/exe
-    std::string exePath = "/proc/" + std::to_string(ppid) + "/exe";
-    char parentExePath[PATH_MAX];
-    ssize_t len = readlink(exePath.c_str(), parentExePath, sizeof(parentExePath) - 1);
-
-    if (len == -1) {
-        return "Error reading " + exePath;
-    }
-
-    parentExePath[len] = '\0'; // Null-terminate the string
-    std::string parentExe(parentExePath);
-
-    if (parentExe.find("bash") != std::string::npos) {
-        return "bash";
-    } else if (parentExe.find("zsh") != std::string::npos) {
-        return "zsh";
-    } else if (parentExe.find("sh") != std::string::npos) {
-        return "sh";
-    } else {
-        return "unix-shell";
-    }
-    #endif
-}
 
     SL_EXT_API SL_VisualShell create_visual_shell(FILE* conn){
         SL_VisualShell vs=SL_VisualShell(conn);

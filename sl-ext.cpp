@@ -179,7 +179,7 @@ void SL_VisualShell::init() {
         printf("VSL: Loading VisualShell(TM) Instance %d", this->instanceNumber);
         this->isInitialized = true;
         this->shell_child_active = true;
-        // We will create a shell child from the ssh connection
+        // We will create a  shell child from the ssh connection
     };
 };
 

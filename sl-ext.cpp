@@ -15,7 +15,6 @@
 #endif
 #define SL_EXT_EXPORTS
 #include "sl-ext.hpp"
-
 extern "C" {
     bool isInitialized = false;
     int vsh_instances=0;
@@ -24,7 +23,6 @@ extern "C" {
             isInitialized = true;
         };
     };
-
     SL_EXT_API const char* get_arch() {
         #if defined(__x86_64__) || defined(_M_X64)
         return "x86_64";
@@ -114,7 +112,6 @@ extern "C" {
         std::ifstream statusFile("/proc/self/status");
         std::string line;
         pid_t ppid = -1;
-
         while (std::getline(statusFile, line)) {
             if (line.substr(0, 5) == "PPid:") {
                 ppid = std::stoi(line.substr(5));
@@ -122,23 +119,18 @@ extern "C" {
             };
         };
         statusFile.close();
-
         if (ppid == -1) {
             return "Error: Unable to find PPID";
         };
-
         // Step 2: Read the executable link from /proc/[PPID]/exe
         std::string exePath = "/proc/" + std::to_string(ppid) + "/exe";
         char parentExePath[PATH_MAX];
         ssize_t len = readlink(exePath.c_str(), parentExePath, sizeof(parentExePath) - 1);
-
         if (len == -1) {
             return "Error reading " + exePath;
         };
-
         parentExePath[len] = '\0'; // Null-terminate the string
         std::string parentExe(parentExePath);
-
         if (parentExe.find("bash") != std::string::npos) {
             return "bash";
         } else if (parentExe.find("zsh") != std::string::npos) {
@@ -182,7 +174,6 @@ void SL_VisualShell::init() {
         // We will create a  shell child from the ssh connection
     };
 };
-
 void SL_VisualShell::kill() {
     if (this->isInitialized) {
         printf("VSL: Shutting down VisualShell(TM) Instance %d", this->instanceNumber);

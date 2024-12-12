@@ -105,10 +105,10 @@ extern "C" {
             } else {
                 if (comspec) {
                     free(comspec);
-                }
+                };
                 return "unknown";
-            }
-        }
+            };
+        };
         #elif __linux__
         // Step 1: Get the PPID from /proc/self/status
         std::ifstream statusFile("/proc/self/status");
@@ -119,13 +119,13 @@ extern "C" {
             if (line.substr(0, 5) == "PPid:") {
                 ppid = std::stoi(line.substr(5));
                 break;
-            }
-        }
+            };
+        };
         statusFile.close();
 
         if (ppid == -1) {
             return "Error: Unable to find PPID";
-        }
+        };
 
         // Step 2: Read the executable link from /proc/[PPID]/exe
         std::string exePath = "/proc/" + std::to_string(ppid) + "/exe";
@@ -134,7 +134,7 @@ extern "C" {
 
         if (len == -1) {
             return "Error reading " + exePath;
-        }
+        };
 
         parentExePath[len] = '\0'; // Null-terminate the string
         std::string parentExe(parentExePath);
@@ -147,10 +147,9 @@ extern "C" {
             return "sh";
         } else {
             return "unix-shell";
-        }
+        };
         #endif
-    }
-
+    };
     SL_EXT_API SL_VisualShell create_visual_shell(FILE* conn){
         SL_VisualShell vs=SL_VisualShell(conn);
         return vs;

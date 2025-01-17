@@ -338,6 +338,7 @@ class SL_GUI {
     int port;
     string credentials;
     string username;
+    auto window;
     bool window_exists=false;
     void init(SL_Client sl){
         this->client=sl;
@@ -368,6 +369,7 @@ class SL_GUI {
         this_thread::sleep_for(chrono::milliseconds(100));
         this->client.print_info("Exiting to visual mode...");
         this->print_info("Welcome to Serverlink!");
+        this->window=1;
     };
     void print_info(string output){
         cout << "VSL: " << output << endl;
@@ -376,7 +378,6 @@ class SL_GUI {
         cout << "\033[1;31mVSL: " << output << "\033[0m" << endl;
     };
 };
-
 vector<string> split(const string &s,const char separator=' '){
     vector<string> tokens;
     string token;

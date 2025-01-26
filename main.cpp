@@ -338,7 +338,7 @@ class SL_GUI {
     int port;
     string credentials;
     string username;
-    auto window;
+    auto window=0;
     bool window_exists=false;
     void init(SL_Client sl){
         this->client=sl;

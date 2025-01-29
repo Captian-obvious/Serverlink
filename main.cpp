@@ -241,7 +241,7 @@ class SL_Client {
         };
     };
     bool hostname_resolves(const std::string& hostname) {
-    #ifdef _WIN32
+        #ifdef _WIN32
         WSADATA wsaData;
         if (WSAStartup(MAKEWORD(2,2), &wsaData) != 0) {
             cerr << "\033[1;31mWSAStartup failed.\033[0m" << endl;
@@ -252,8 +252,8 @@ class SL_Client {
         int status;
         memset(&hints,0,sizeof hints);
         hints.ai_family=AF_UNSPEC; // AF_INET or AF_INET6 to force version
-        hints.ai_socktype=SOCK_STREAM;    
-        if ((status=getaddrinfo(hostname.c_str(), NULL, &hints, &res))!=0){
+        hints.ai_socktype=SOCK_STREAM;
+        if ((status=getaddrinfo(hostname.c_str(),NULL,&hints,&res))!=0){
             #ifdef _WIN32
             cerr << "\033[1;31mSL: Unable to get address info: " << WSAGetLastError() << "\033[0m" << endl;
             #else
@@ -266,7 +266,7 @@ class SL_Client {
         };
         freeaddrinfo(res); // free the linked list
         #ifdef _WIN32
-        WSACleanup ();
+        WSACleanup();
         #endif
         return true;
     };
@@ -329,7 +329,7 @@ class SL_Client {
     };
     void print_err(string output){
         cout << "\033[1;31mSL: " << output << "\033[0m" << endl;
-    };
+    }; 
 };
 class SL_GUI {
     public:

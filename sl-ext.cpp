@@ -68,7 +68,7 @@ extern "C" {
         return "UNKNOWN";
         #endif
     };
-    SL_EXT_API string get_os_name() {
+    SL_EXT_API std::string get_os_name() {
         #ifdef _WIN32
         return "win32";
         #elif _WIN64
@@ -152,6 +152,9 @@ extern "C" {
     SL_EXT_API void kill_visual_shell(SL_VisualShell vs){
         vs.kill();
     };
+    SL_EXT_API std::string get_last_command_of_shell(SL_VisualShell vs){
+        vs.get_last_command();
+    };
 };
 SL_VisualShell::SL_VisualShell(FILE* conn) {
     this->connection = conn;
@@ -159,6 +162,7 @@ SL_VisualShell::SL_VisualShell(FILE* conn) {
     this->isInitialized = false;
     vsh_instances++;
     this->instanceNumber = vsh_instances;
+    this->last_command="";
 };
 SL_VisualShell::~SL_VisualShell() {
     if (this->isInitialized) {
@@ -179,5 +183,10 @@ void SL_VisualShell::kill() {
         printf("VSL: Shutting down VisualShell(TM) Instance %d", this->instanceNumber);
         this->isInitialized = false;
         this->shell_child_active = false;
+    };
+};
+std::string SL_VisualShell::get_last_command() {
+    if (this->isInitialized) {
+        return this->last_command;
     };
 };

@@ -40,14 +40,16 @@ public:
 
     void init();
     void kill();
+    std::string get_last_command();
 };
 extern "C" {
     SL_EXT_API void initialize();
     SL_EXT_API const char* get_arch();
-    SL_EXT_API string get_os_name();
-    SL_EXT_API string get_referring_shell();
+    SL_EXT_API std::string get_os_name();
+    SL_EXT_API std::string get_referring_shell();
     SL_EXT_API SL_VisualShell create_visual_shell(FILE* conn);
     SL_EXT_API void init_visual_shell(SL_VisualShell vs);
     SL_EXT_API void kill_visual_shell(SL_VisualShell vs);
+    SL_EXT_API std::string get_last_command_of_shell(SL_VisualShell vs);
 };
 #endif

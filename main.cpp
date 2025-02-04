@@ -397,6 +397,7 @@ typedef const char* (*GetReferringShellFunc)();
 typedef SL_VisualShell (*CreateVisualShellFunc)(FILE*);
 typedef void (*InitVisualShellFunc)(SL_VisualShell);
 typedef void (*KillVisualShellFunc)(SL_VisualShell);
+typedef void (*GetCommandFromShellFunc)(SL_VisualShell);
 
 void loadSL_ExtDLL() {
     static bool isLoaded = false;
@@ -410,8 +411,9 @@ void loadSL_ExtDLL() {
             CreateVisualShellFunc create_visual_shell = (CreateVisualShellFunc)GetProcAddress(hDLL, "create_visual_shell");
             InitVisualShellFunc init_visual_shell=(InitVisualShellFunc)GetProcAddress(hDLL, "init_visual_shell");
             KillVisualShellFunc kill_visual_shell=(KillVisualShellFunc)GetProcAddress(hDLL, "kill_visual_shell");
+            GetCommandFromShellFunc get_last_command_of_shell=(GetCommandFromShellFunc)GetProcAddress(hDLL, "get_last_command_of_shell");
 
-            if (!initialize || !get_arch || !get_os_name || !get_referring_shell || !create_visual_shell || !init_visual_shell || !kill_visual_shell) {
+            if (!initialize || !get_arch || !get_os_name || !get_referring_shell || !create_visual_shell || !init_visual_shell || !kill_visual_shell || !get_last_command_of_shell) {
                 cerr << "Failed to get one or more function addresses." << endl;
                 MessageBox(NULL, "Failed to get one or more function addresses.", "AddrLoadFail", MB_OK | MB_ICONERROR);
             };

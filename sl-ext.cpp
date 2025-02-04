@@ -153,7 +153,7 @@ extern "C" {
         vs.kill();
     };
     SL_EXT_API std::string get_last_command_of_shell(SL_VisualShell vs){
-        vs.get_last_command();
+        return vs.get_last_command();
     };
 };
 SL_VisualShell::SL_VisualShell(FILE* conn) {
@@ -188,5 +188,7 @@ void SL_VisualShell::kill() {
 std::string SL_VisualShell::get_last_command() {
     if (this->isInitialized) {
         return this->last_command;
+    }else{
+        return "";
     };
 };

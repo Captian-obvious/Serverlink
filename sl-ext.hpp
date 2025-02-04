@@ -34,6 +34,7 @@ public:
     bool isInitialized;
     bool shell_child_active;
     int instanceNumber;
+    std::string last_command;
 
     SL_VisualShell(FILE* conn);
     ~SL_VisualShell();

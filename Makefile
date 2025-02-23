@@ -27,7 +27,7 @@ permissions: ./build/sl ./build/libsl-ext.so
 check:
 	bash ./check.sh
 distcheck:
-	./sl quit
+	./build/sl quit
 
 # Clean up compiled files
 clean:

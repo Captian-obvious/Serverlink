@@ -8,7 +8,7 @@ FLAGS = -Os -Werror -fPIC
 OUTFILE = ./build/sl
 OUTFILE2 = ./build/libsl-ext.so
 init:
-    mkdir build
+	mkdir build
 
 # Target to compile the shared library
 lib: ./build/sl-ext.cpp

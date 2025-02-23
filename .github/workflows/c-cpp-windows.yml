@@ -27,7 +27,7 @@ jobs:
       run: |
         build\\bin\\Debug\\sl.exe quit
     - name: capture artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
           name: build-artifacts
           path: .\\build

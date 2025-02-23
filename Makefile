@@ -16,7 +16,7 @@ lib: ./sl-ext.cpp
 
 # Target to compile the main executable and link with the shared library
 sl: ./main.cpp ./build/libsl-ext.so
-	$(COMPILER) $(FLAGS) ./main.cpp -L./build -lsl-ext -Wl,-rpath='./' -o $(OUTFILE)
+	$(COMPILER) $(FLAGS) ./main.cpp -L./build -lsl-ext -Wl,-rpath='./build' -o $(OUTFILE)
 main:
 	bash ./compile.sh
 # Target to grant permissions

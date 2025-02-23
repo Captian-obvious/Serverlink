@@ -11,7 +11,7 @@ init:
 	mkdir build
 
 # Target to compile the shared library
-lib: ./build/sl-ext.cpp
+lib: ./sl-ext.cpp
 	$(COMPILER) $(FLAGS) -shared -o $(OUTFILE2) ./sl-ext.cpp
 
 # Target to compile the main executable and link with the shared library

@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <cstdio>
 #include <stdlib.h>
+#include <format>
 #include "sl-ext.hpp"
 #ifdef _WIN32
 //#include "winsock.h"
@@ -39,6 +40,7 @@ class SL_Client {
     bool isConnected;
     bool isInitialized;
     bool isCLIInitialized;
+    bool isMountInitialized;
     string currentUrl;
     FILE* sshConnection;
     bool isSSHConnected;
@@ -46,6 +48,7 @@ class SL_Client {
     string curr_path;
     string curr_user;
     string credentials;
+    string mount_path;
     string sl_user_agent="SL-Client/1.0 Mozilla/5.0 ("+user_agent_stub+") AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36";
     unordered_map<string,unordered_map<string,string>>commands={
         {"connect", {
@@ -97,8 +100,10 @@ class SL_Client {
         this->isInitialized=false;
         this->isCLIInitialized=false;
         this->currentUrl="";
+        this->mount_path="";
         this->isSSHConnected=false;
         this->isVisualMode=false;
+        this->isMountInitialized=false;
     };
     void get_connection_info(){
         if (!this->isConnected){
@@ -116,6 +121,47 @@ class SL_Client {
                 cout << "  " << i->first << ":" << i->second << endl;
             };
         };
+    };
+    void initialize_mount(){
+        if (!this->isMountInitialized){
+            this->isMountInitialized=true;
+            this->curr_path="";
+            this->start_mount_process();
+        }else{
+            this->print_err("Not Connected! Cannot mount without an active connection!");
+        }
+    };
+    void start_mount_process(){
+        if (this->isMountInitialized){
+            string theuser=this->curr_user;
+            this->print_info("Starting mount...");
+            this_thread::sleep_for(chrono::milliseconds(100));
+            this->print_info("Finding home folder...");
+            this->curr_path="";
+            this->print_info("Validating User..");
+            if (theuser){
+                this->print_info("Logging in...");
+                this_thread::sleep_for(chrono::milliseconds(100));
+                this->print_info("Mounting...");
+                this->print_info(format("Mount completed... Files accessible at %s",this->curr_path);
+            };
+        }else{
+            this->print_err("Mount not initialized! It must be initialized before running.")
+        };
+    };
+    void mount_home(){
+        if (this->isConnected){
+            string homeDir;
+            #ifdef _WIN32
+                homeDir=std::getenv("USERPROFILE");
+            #else
+                homeDir=std::getenv("HOME");
+            #endif
+            this->mount_path=format("%s",homeDir);
+            this->curr_path=this->mount_path;
+        }else{
+            this->print_err("Not Connected! Cannot mount without an active connection!");
+        }
     };
     void connect(string hostname,int port,string credentials){
         string usr="";
@@ -305,6 +351,16 @@ class SL_Client {
         }else if(cmd=="cinfo"){
             if (args.size()<1){
                 this->get_connection_info();
+            };
+        }else if(cmd=="mnt"){
+            if (args.size()<1){
+                if (!this->isMountInitialized){
+
+                }else{
+                    this->mount_home();
+                };
+            }else{
+                this->print_err("Too many arguments provided.");
             };
         }else if(cmd=="disconnect"){
             if (args.size()<1){ 

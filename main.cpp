@@ -143,7 +143,7 @@ class SL_Client {
                 this_thread::sleep_for(chrono::milliseconds(100));
                 this->print_info("Mounting...");
                 this->mount_home();
-                this->print_info(std::format("Mount completed... Files accessible at %s",this->mount_path));
+                this->print_info("Mount completed... Files accessible at 'you broke it >:('");
             };
         }else{
             this->print_err("Mount not initialized! It must be initialized before running.");
@@ -157,7 +157,7 @@ class SL_Client {
             #else
                 homeDir=std::getenv("HOME");
             #endif
-            this->mount_path=format("%s",homeDir);
+            this->mount_path=homeDir;
             this->curr_path=this->mount_path;
         }else{
             this->print_err("Not Connected! Cannot mount without an active connection!");

@@ -126,7 +126,6 @@ class SL_Client {
         if (!this->isMountInitialized){
             this->isMountInitialized=true;
             this->curr_path="";
-            this->start_mount_process();
         }else{
             this->print_err("Not Connected! Cannot mount without an active connection!");
         }
@@ -143,10 +142,11 @@ class SL_Client {
                 this->print_info("Logging in...");
                 this_thread::sleep_for(chrono::milliseconds(100));
                 this->print_info("Mounting...");
-                this->print_info(format("Mount completed... Files accessible at %s",this->mount_path));
+                this->mount_home();
+                this->print_info(std::format("Mount completed... Files accessible at %s",this->mount_path));
             };
         }else{
-            this->print_err("Mount not initialized! It must be initialized before running.")
+            this->print_err("Mount not initialized! It must be initialized before running.");
         };
     };
     void mount_home(){
@@ -161,7 +161,7 @@ class SL_Client {
             this->curr_path=this->mount_path;
         }else{
             this->print_err("Not Connected! Cannot mount without an active connection!");
-        }
+        };
     };
     void connect(string hostname,int port,string credentials){
         string usr="";
@@ -355,9 +355,10 @@ class SL_Client {
         }else if(cmd=="mnt"){
             if (args.size()<1){
                 if (!this->isMountInitialized){
-
+                    this->initialize_mount();
+                    this->start_mount_process();
                 }else{
-                    this->mount_home();
+                    this->start_mount_process();
                 };
             }else{
                 this->print_err("Too many arguments provided.");
@@ -385,7 +386,7 @@ class SL_Client {
     };
     void print_err(string output){
         cout << "\033[1;31mSL: " << output << "\033[0m" << endl;
-    }; 
+    };
 };
 class SL_GUI {
     public:

@@ -138,7 +138,7 @@ class SL_Client {
             this->print_info("Finding home folder...");
             this->curr_path="";
             this->print_info("Validating User..");
-            if (theuser){
+            if (theuser!=NULL){
                 this->print_info("Logging in...");
                 this_thread::sleep_for(chrono::milliseconds(100));
                 this->print_info("Mounting...");

@@ -143,7 +143,7 @@ class SL_Client {
                 this->print_info("Logging in...");
                 this_thread::sleep_for(chrono::milliseconds(100));
                 this->print_info("Mounting...");
-                this->print_info(format("Mount completed... Files accessible at %s",this->curr_path);
+                this->print_info(format("Mount completed... Files accessible at %s",this->mount_path));
             };
         }else{
             this->print_err("Mount not initialized! It must be initialized before running.")

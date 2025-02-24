@@ -138,13 +138,11 @@ class SL_Client {
             this->print_info("Finding home folder...");
             this->curr_path="";
             this->print_info("Validating User..");
-            if (theuser!=NULL){
-                this->print_info("Logging in...");
-                this_thread::sleep_for(chrono::milliseconds(100));
-                this->print_info("Mounting...");
-                this->mount_home();
-                this->print_info("Mount completed... Files accessible at 'you broke it >:('");
-            };
+            this->print_info("Logging in...");
+            this_thread::sleep_for(chrono::milliseconds(100));
+            this->print_info("Mounting...");
+            this->mount_home();
+            this->print_info("Mount completed... Files accessible at 'you broke it >:('");
         }else{
             this->print_err("Mount not initialized! It must be initialized before running.");
         };

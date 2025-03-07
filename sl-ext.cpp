@@ -166,13 +166,13 @@ SL_VisualShell::SL_VisualShell(FILE* conn) {
 };
 SL_VisualShell::~SL_VisualShell() {
     if (this->isInitialized) {
-        printf("VSL: Cleaning up VisualShell(TM) Instance %d", this->instanceNumber);
+        printf("VSL: Cleaning up VisualShell(TM) Instance %d \n", this->instanceNumber);
         vsh_instances--;
     };
 };
 void SL_VisualShell::init() {
     if (!this->isInitialized) {
-        printf("VSL: Loading VisualShell(TM) Instance %d", this->instanceNumber);
+        printf("VSL: Loading VisualShell(TM) Instance %d \n", this->instanceNumber);
         this->isInitialized = true;
         this->shell_child_active = true;
         // We will create a  shell child from the ssh connection
@@ -180,7 +180,7 @@ void SL_VisualShell::init() {
 };
 void SL_VisualShell::kill() {
     if (this->isInitialized) {
-        printf("VSL: Shutting down VisualShell(TM) Instance %d", this->instanceNumber);
+        printf("VSL: Shutting down VisualShell(TM) Instance %d \n", this->instanceNumber);
         this->isInitialized = false;
         this->shell_child_active = false;
     };

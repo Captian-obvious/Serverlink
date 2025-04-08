@@ -20,7 +20,7 @@ set(SOURCES
 
 # Define the library and executable
 add_library(sl-ext SHARED sl-ext.cpp)
-add_executable(sl main.cpp)
+add_executable(sl main.cpp serverlink.rc)
 
 # Link the shared library to the executable
 target_link_libraries(sl sl-ext)
